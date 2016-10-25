@@ -26,14 +26,14 @@ typedef struct tagBITMAPINFOHEADER {
 } BitmapInfoHead;
 #pragma pack(pop)
 
-constexpr const int BMP_FOURCC = 0x4D42;
+constexpr const uint16 BMP_MAGIC_NUM = 0x4D42;
 constexpr const int SIZE_BMP_FILE_HEAD = sizeof(BitmapFileHead);
 constexpr const int SIZE_BMP_INFO_HEAD = sizeof(BitmapInfoHead);
 
 bool read_bmp(unsigned char* file_data, img_data& output)
 {
 	BitmapFileHead* fileHead = (BitmapFileHead*)file_data;
-	if (fileHead->MagicBM != BMP_FOURCC)
+	if (fileHead->MagicBM != BMP_MAGIC_NUM)
 	{
 		return false;
 	}

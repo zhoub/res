@@ -4,10 +4,10 @@
 enum ImageType
 {
 	NO_IMAGE = 0,			//colormap:no  encoding:no
-	PALETTE = 1,			//colormap:yes encoding:no
+	INDEX = 1,			//colormap:yes encoding:no
 	TRUECOLOR = 2,			//colormap:no  encoding:no
 	MONOCHROME = 3,			//colormap:no  encoding:no
-	ENCODED_PALETTE = 9,	//colormap:yes encoding:yes
+	ENCODED_INDEX = 9,	//colormap:yes encoding:yes
 	ENCODED_TRUECOLOR = 10,	//colormap:no  encoding:yes
 	ENCODED_MONOCHROME = 11,//colormap:no  encoding:yes
 };
@@ -36,6 +36,9 @@ bool read_tga(unsigned char* file_data, img_data& output)
 	TGAFileHead* fileHead = (TGAFileHead*)file_data;
 	if (fileHead->ImageType != TRUECOLOR ||
 		fileHead->ColorMapType != 0 ||
+		fileHead->CMapLength != 0 ||
+		fileHead->XOffset != 0 ||
+		fileHead->YOffset != 0 ||
 		(fileHead->PixelDepth != 24 && fileHead->PixelDepth != 32))
 	{
 		return false;
