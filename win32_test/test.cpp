@@ -23,7 +23,7 @@ HBITMAP CreateDIB(HDC dc, int width, int height, VOID** buffer)
 	ZeroMemory(&bmpInfo, sizeof(BITMAPINFO));
 	bmpInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 	bmpInfo.bmiHeader.biWidth = width;
-	bmpInfo.bmiHeader.biHeight = -height;
+	bmpInfo.bmiHeader.biHeight = height;
 	bmpInfo.bmiHeader.biPlanes = 1;
 	bmpInfo.bmiHeader.biBitCount = COLOR_BIT;
 	bmpInfo.bmiHeader.biCompression = BI_RGB;
@@ -127,24 +127,26 @@ bool Initialize(HWND hWnd)
 	srand(static_cast<unsigned>(time(0)));
 	hWindowDC = ::GetDC(hWindow);
 
-	FILE* imgFile = fopen("test.bmp", "rb+");
+	const char* fileName = "test.bmp";
+	//const char* fileName = "test_alpha.bmp";
+	FILE* imgFile = fopen(fileName, "rb+");
 	if (imgFile == nullptr)
 		return false;
 	fseek(imgFile, 0, SEEK_END);
 	unsigned long imgFileSize = ftell(imgFile);
-	fseek(imgFile, 0, SEEK_SET);
-
 	unsigned char* fileData = new unsigned char[imgFileSize];
+	fseek(imgFile, 0, SEEK_SET);
+	fread(fileData, 1, imgFileSize, imgFile);
+	fclose(imgFile);
+
 	img_data data;
-	if (!read_bmp(fileData, data))
+	auto result = read_bmp(fileData, data);
+	delete[] fileData;
+
+	if (!result)
 	{
-		delete[] fileData;
-		fclose(imgFile);
-		bufferBMP.Clear();
 		return false;
 	}
-	delete[] fileData;
-	fclose(imgFile);
 
 	if (!bufferBMP.Create(hWindowDC, data.width, data.height))
 	{
@@ -159,7 +161,7 @@ bool Initialize(HWND hWnd)
 			for (int j = 0; j < bufferBMP.Width; j++)
 			{
 				auto dstBuffer = bufferBMP.pBuffer + i * bufferBMP.Pitch + 3 * j;
-				auto srcBuffer = data.raw_data + data.width * 4 * i + j * 4;
+				auto srcBuffer = data.raw_data + 4 * (data.width * i + j);
 
 				dstBuffer[0] = srcBuffer[0];
 				dstBuffer[1] = srcBuffer[1];
@@ -169,9 +171,10 @@ bool Initialize(HWND hWnd)
 	}
 	else
 	{
+		auto linesize = data.width * 3;
 		for (int i = 0; i < bufferBMP.Height; i++)
 		{
-			memcpy(bufferBMP.pBuffer + i * bufferBMP.Pitch, data.raw_data + data.width * 3 * i, data.width * 3);
+			memcpy(bufferBMP.pBuffer + i * bufferBMP.Pitch, data.raw_data + linesize * i, linesize);
 		}
 	}
 
