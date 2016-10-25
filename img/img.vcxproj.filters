@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="zlib">
+      <UniqueIdentifier>{49bf5448-8f60-4145-905a-9056428d6ae1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="image.h">
@@ -20,6 +23,36 @@
     </ClInclude>
     <ClInclude Include="inner_include.h">
       <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\zlib\crc32.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\zlib\inffast.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\zlib\inffixed.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\zlib\inftrees.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\zlib\trees.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\zlib\zconf.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\zlib\zlib.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\zlib\zutil.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\zlib\gzguts.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\zlib\inflate.h">
+      <Filter>zlib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -31,6 +64,36 @@
     </ClCompile>
     <ClCompile Include="tga.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="png.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\zlib\adler32.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\zlib\crc32.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\zlib\infback.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\zlib\inffast.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\zlib\inftrees.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\zlib\trees.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\zlib\uncompr.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\zlib\zutil.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\zlib\inflate.c">
+      <Filter>zlib</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

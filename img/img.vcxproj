@@ -125,12 +125,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\zlib\crc32.h" />
+    <ClInclude Include="..\zlib\gzguts.h" />
+    <ClInclude Include="..\zlib\inffast.h" />
+    <ClInclude Include="..\zlib\inffixed.h" />
+    <ClInclude Include="..\zlib\inflate.h" />
+    <ClInclude Include="..\zlib\inftrees.h" />
+    <ClInclude Include="..\zlib\trees.h" />
+    <ClInclude Include="..\zlib\zconf.h" />
+    <ClInclude Include="..\zlib\zlib.h" />
+    <ClInclude Include="..\zlib\zutil.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="inner_include.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\zlib\adler32.c" />
+    <ClCompile Include="..\zlib\crc32.c" />
+    <ClCompile Include="..\zlib\infback.c" />
+    <ClCompile Include="..\zlib\inffast.c" />
+    <ClCompile Include="..\zlib\inflate.c" />
+    <ClCompile Include="..\zlib\inftrees.c" />
+    <ClCompile Include="..\zlib\trees.c" />
+    <ClCompile Include="..\zlib\uncompr.c" />
+    <ClCompile Include="..\zlib\zutil.c" />
     <ClCompile Include="bmp.cpp" />
     <ClCompile Include="image.cpp" />
+    <ClCompile Include="png.cpp" />
     <ClCompile Include="tga.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
