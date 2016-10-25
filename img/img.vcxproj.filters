@@ -18,9 +18,18 @@
     <ClInclude Include="image.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="inner_include.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bmp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="image.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="tga.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

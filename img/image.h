@@ -4,6 +4,7 @@ struct img_data
 {
 	img_data();
 	unsigned char* raw_data;
+	int data_length;
 	int width;
 	int height;
 	bool has_alpha;

@@ -127,8 +127,9 @@ bool Initialize(HWND hWnd)
 	srand(static_cast<unsigned>(time(0)));
 	hWindowDC = ::GetDC(hWindow);
 
-	const char* fileName = "test.bmp";
+	//const char* fileName = "test.bmp";
 	//const char* fileName = "test_alpha.bmp";
+	const char* fileName = "test.tga";
 	FILE* imgFile = fopen(fileName, "rb+");
 	if (imgFile == nullptr)
 		return false;
@@ -140,7 +141,8 @@ bool Initialize(HWND hWnd)
 	fclose(imgFile);
 
 	img_data data;
-	auto result = read_bmp(fileData, data);
+	//auto result = read_bmp(fileData, data);
+	auto result = read_tga(fileData, data);
 	delete[] fileData;
 
 	if (!result)

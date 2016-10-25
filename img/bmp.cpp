@@ -1,65 +1,34 @@
 #include "image.h"
-#include <stdlib.h>
-
-
-#pragma once
+#include "inner_include.h"
 
 #pragma pack(push)
 #pragma pack(1)
+typedef struct tagBITMAPFILEHEADER {
+	uint16	MagicBM;	//0x4D42
+	uint32	FileSize;	// whole file size.
+	uint16	Reserved1;
+	uint16	Reserved2;
+	uint32	DataOffset;	// in bytes. rgb数据偏移值。
+} BitmapFileHead;
 
-namespace
-{
-	typedef char int8;
-	typedef short int16;
-	typedef int int32;
-	typedef unsigned char uint8;
-	typedef unsigned short uint16;
-	typedef unsigned int uint32;
-
-	constexpr const int BMP_FOURCC = 0x4D42;
-	typedef struct tagBITMAPFILEHEADER {
-		uint16	MagicBM;	//0x4D42
-		uint32	FileSize;	// whole file size.
-		uint16	Reserved1;
-		uint16	Reserved2;
-		uint32	DataOffset;	// in bytes. rgb数据偏移值。
-	} BitmapFileHead;
-	constexpr const int SIZE_FILE_HEAD = sizeof(BitmapFileHead);
-	typedef struct tagBITMAPINFOHEADER {
-		uint32	InfoSize;	// =sizeof(BitmapInfoHead) =sizeof(this)
-		int32	Width;
-		int32	Height;
-		uint16	Plane;		// always = 1, compare to other format like yuv, i420, etc.
-		uint16	DataBits;	// normally use 24or32, 1, 4 is special used for compressed.
-		uint32	Format;		// must be 0 for uncompressed here.
-		uint32	DataSize;	// raw data size.
-		int32	PPMX;
-		int32	PPMY;
-		uint32	ClrUsed;
-		uint32	ClrImportant;
-	} BitmapInfoHead;
-	constexpr const int SIZE_INFO_HEAD = sizeof(BitmapInfoHead);
-
-	typedef struct tagColor3
-	{
-		uint8 B;
-		uint8 G;
-		uint8 R;
-	} Color3;
-
-	typedef struct tagColor4
-	{
-		uint8 A;
-		uint8 B;
-		uint8 G;
-		uint8 R;
-	} Color4;
-
+typedef struct tagBITMAPINFOHEADER {
+	uint32	InfoSize;	// =sizeof(BitmapInfoHead) =sizeof(this)
+	int32	Width;
+	int32	Height;
+	uint16	Plane;		// always = 1, compare to other format like yuv, i420, etc.
+	uint16	DataBits;	// normally use 24or32, 1, 4 is special used for compressed.
+	uint32	Format;		// must be 0 for uncompressed here.
+	uint32	DataSize;	// raw data size.
+	int32	PPMX;
+	int32	PPMY;
+	uint32	ClrUsed;
+	uint32	ClrImportant;
+} BitmapInfoHead;
 #pragma pack(pop)
 
-
-	inline int32 LineSize(int32 width, int32 bits) { return (width * bits + 31) / 32 * 4; }
-}
+constexpr const int BMP_FOURCC = 0x4D42;
+constexpr const int SIZE_BMP_FILE_HEAD = sizeof(BitmapFileHead);
+constexpr const int SIZE_BMP_INFO_HEAD = sizeof(BitmapInfoHead);
 
 bool read_bmp(unsigned char* file_data, img_data& output)
 {
@@ -68,7 +37,7 @@ bool read_bmp(unsigned char* file_data, img_data& output)
 	{
 		return false;
 	}
-	BitmapInfoHead* infoHead = (BitmapInfoHead*)(file_data + SIZE_FILE_HEAD);
+	BitmapInfoHead* infoHead = (BitmapInfoHead*)(file_data + SIZE_BMP_FILE_HEAD);
 	if ((infoHead->DataBits != 24 && infoHead->DataBits != 32) ||
 		infoHead->Format != 0 ||
 		infoHead->Plane != 1)
@@ -76,14 +45,15 @@ bool read_bmp(unsigned char* file_data, img_data& output)
 		return false;
 	}
 
-	auto pitch = LineSize(infoHead->Width, infoHead->DataBits);
+	
 	output.has_alpha = infoHead->DataBits == 32;
 	output.width = infoHead->Width;
 	output.height = infoHead->Height;
 	auto dataPtr = (file_data + fileHead->DataOffset);
+	auto pitch = line_size(infoHead->Width, infoHead->DataBits);
+	create_img_data(output);
 	if (output.has_alpha)
 	{
-		output.raw_data = new unsigned char[output.width * output.height * 4];
 		for (int i = 0; i < output.height; i++)
 		{
 			for (int j = 0; j < output.width; j++)
@@ -99,8 +69,6 @@ bool read_bmp(unsigned char* file_data, img_data& output)
 	}
 	else
 	{
-		output.raw_data = new unsigned char[output.width * output.height * 3];
-
 		for (int i = 0; i < output.height; i++)
 		{
 			for (int j = 0; j < output.width; j++)
@@ -114,25 +82,5 @@ bool read_bmp(unsigned char* file_data, img_data& output)
 		}
 	}
 
-
 	return true;
-}
-
-img_data::img_data()
-{
-	has_alpha = false;
-	width = 0;
-	height = 0;
-	raw_data = nullptr;
-}
-void destroy_img_data(img_data& output)
-{
-	output.has_alpha = false;
-	output.width = 0;
-	output.height = 0;
-	if (output.raw_data)
-	{
-		delete[] output.raw_data;
-		output.raw_data = nullptr;
-	}
 }

@@ -126,9 +126,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="image.h" />
+    <ClInclude Include="inner_include.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bmp.cpp" />
+    <ClCompile Include="image.cpp" />
+    <ClCompile Include="tga.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
