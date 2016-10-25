@@ -121,7 +121,8 @@ void CenterWindow(HWND hWnd)
 		bufferBMP.Height + 2 * borderHeight, SWP_SHOWWINDOW);
 }
 
-#include <image.h>
+#include <img_data.h>
+#include <file_data.h>
 bool Initialize(HWND hWnd)
 {
 	srand(static_cast<unsigned>(time(0)));
@@ -133,21 +134,15 @@ bool Initialize(HWND hWnd)
 	//const char* fileName = "test_alpha.tga";
 	//const char* fileName = "test.png";
 	const char* fileName = "test_alpha.png";
-	FILE* imgFile = fopen(fileName, "rb+");
-	if (imgFile == nullptr)
+	file_data f;
+	if (!load_file(fileName, f))
 		return false;
-	fseek(imgFile, 0, SEEK_END);
-	unsigned long imgFileSize = ftell(imgFile);
-	unsigned char* fileData = new unsigned char[imgFileSize];
-	fseek(imgFile, 0, SEEK_SET);
-	fread(fileData, 1, imgFileSize, imgFile);
-	fclose(imgFile);
 
 	img_data data;
 	//auto result = read_bmp(fileData, data);
 	//auto result = read_tga(fileData, data);
-	auto result = read_png(fileData, data);
-	delete[] fileData;
+	auto result = read_png(f.buffer, data);
+	destroy_file_data(f);
 
 	if (!result)
 	{

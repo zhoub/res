@@ -18,9 +18,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="image.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="inner_include.h">
       <Filter>源文件</Filter>
     </ClInclude>
@@ -54,12 +51,15 @@
     <ClInclude Include="..\zlib\inflate.h">
       <Filter>zlib</Filter>
     </ClInclude>
+    <ClInclude Include="file_data.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="img_data.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bmp.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="image.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="tga.cpp">
@@ -94,6 +94,12 @@
     </ClCompile>
     <ClCompile Include="..\zlib\inflate.c">
       <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="file_data.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="img_data.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

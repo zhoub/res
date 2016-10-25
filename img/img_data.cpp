@@ -1,4 +1,4 @@
-#include "image.h"
+#include "img_data.h"
 
 img_data::img_data()
 {

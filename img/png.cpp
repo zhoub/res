@@ -1,4 +1,4 @@
-#include "image.h"
+#include "img_data.h"
 #include "inner_include.h"
 #include "../zlib/zlib.h"
 #include <memory.h>
