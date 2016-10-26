@@ -45,7 +45,7 @@ bool read_bmp(unsigned char* file_data, img_data& output)
 		return false;
 	}
 
-	
+
 	output.has_alpha = infoHead->DataBits == 32;
 	output.width = infoHead->Width;
 	output.height = infoHead->Height;
@@ -60,9 +60,9 @@ bool read_bmp(unsigned char* file_data, img_data& output)
 			{
 				auto srcPtr = dataPtr + i * pitch + j * 4;
 				auto dstPtr = output.raw_data + 4 * (i * output.width + j);
-				dstPtr[0] = srcPtr[0];
+				dstPtr[2] = srcPtr[0];
 				dstPtr[1] = srcPtr[1];
-				dstPtr[2] = srcPtr[2];
+				dstPtr[0] = srcPtr[2];
 				dstPtr[3] = srcPtr[3];
 			}
 		}
@@ -75,12 +75,11 @@ bool read_bmp(unsigned char* file_data, img_data& output)
 			{
 				auto srcPtr = dataPtr + i * pitch + j * 3;
 				auto dstPtr = output.raw_data + 3 * (i * output.width + j);
-				dstPtr[0] = srcPtr[0];
+				dstPtr[2] = srcPtr[0];
 				dstPtr[1] = srcPtr[1];
-				dstPtr[2] = srcPtr[2];
+				dstPtr[0] = srcPtr[2];
 			}
 		}
 	}
-
 	return true;
 }

@@ -233,22 +233,5 @@ bool read_png(unsigned char* file_data, img_data& output)
 
 	delete[] reconA;
 	delete[]decodedData;
-
-	//bgra
-	for (int i = 0; i < output.height; i++)
-	{
-		unsigned char* dstPtr = output.raw_data + dstPitch * i;
-
-		for (int j = 0; j < output.width; j++)
-		{
-			for (int cp = 0; cp < 3; cp++)
-			{
-				int offset = j * color_space;
-				unsigned char red = dstPtr[offset + 2];
-				dstPtr[offset + 2] = dstPtr[offset + 0];
-				dstPtr[offset + 0] = red;
-			}
-		}
-	}
 	return true;
 }
