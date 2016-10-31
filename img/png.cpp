@@ -136,9 +136,15 @@ bool read_png(unsigned char* file_data, img_data& output)
 	create_img_data(output);
 
 	unsigned long dataLength = SwapEndian(chunkHead->Length);
-	unsigned long decodedDataLength = dataLength * 4;
+	unsigned long decodedDataLength = dataLength;
 	unsigned char* decodedData = new unsigned char[decodedDataLength];
 
+	while (Z_BUF_ERROR == uncompress(decodedData, &decodedDataLength, dataPtr, dataLength))
+	{
+		delete[] decodedData;
+		decodedDataLength *= 2;
+		decodedData = new unsigned char[decodedDataLength];
+	}
 	if (Z_OK != uncompress(decodedData, &decodedDataLength, dataPtr, dataLength))
 	{
 		destroy_img_data(output);
@@ -150,6 +156,8 @@ bool read_png(unsigned char* file_data, img_data& output)
 	int color_space = output.has_alpha ? 4 : 3;
 	int* reconA = new int[color_space];
 	int dstPitch = output.width * color_space;
+
+
 	for (int i = 0; i < output.height; i++)
 	{
 		unsigned char* srcPtr = decodedData + pitch * i;
@@ -184,7 +192,7 @@ bool read_png(unsigned char* file_data, img_data& output)
 				for (int cp = 0; cp < color_space; cp++)
 				{
 					int offset = j * color_space + cp;
-					dstPtr[offset] = reconA[cp] = (srcPtr[offset] + reconB[cp]) % 256;
+					dstPtr[offset] = reconA[cp] = (srcPtr[offset] + reconB[offset]) % 256;
 				}
 			}
 		}
@@ -230,7 +238,6 @@ bool read_png(unsigned char* file_data, img_data& output)
 			assert(false);
 		}
 	}
-
 	delete[] reconA;
 	delete[]decodedData;
 	return true;
