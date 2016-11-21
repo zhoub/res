@@ -31,7 +31,7 @@ typedef struct tagTGAFileHead
 constexpr const int SIZE_TGA_FILE_HEAD = sizeof(TGAFileHead);
 #pragma pack(pop)
 
-bool read_tga(unsigned char* file_data, img_data& output)
+bool is_tga(unsigned char* file_data)
 {
 	TGAFileHead* fileHead = (TGAFileHead*)file_data;
 	if (fileHead->ImageType != TRUECOLOR ||
@@ -43,6 +43,17 @@ bool read_tga(unsigned char* file_data, img_data& output)
 	{
 		return false;
 	}
+	return true;
+}
+
+bool read_tga(unsigned char* file_data, img_data& output)
+{
+	if (!is_tga(file_data))
+	{
+		return false;
+	}
+
+	TGAFileHead* fileHead = (TGAFileHead*)file_data;
 
 	output.has_alpha = fileHead->PixelDepth == 32;
 	output.width = fileHead->Width;

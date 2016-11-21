@@ -30,13 +30,14 @@ constexpr const uint16 BMP_MAGIC_NUM = 0x4D42;
 constexpr const int SIZE_BMP_FILE_HEAD = sizeof(BitmapFileHead);
 constexpr const int SIZE_BMP_INFO_HEAD = sizeof(BitmapInfoHead);
 
-bool read_bmp(unsigned char* file_data, img_data& output)
+bool is_bmp(unsigned char* file_data)
 {
 	BitmapFileHead* fileHead = (BitmapFileHead*)file_data;
 	if (fileHead->MagicBM != BMP_MAGIC_NUM)
 	{
 		return false;
 	}
+
 	BitmapInfoHead* infoHead = (BitmapInfoHead*)(file_data + SIZE_BMP_FILE_HEAD);
 	if ((infoHead->DataBits != 24 && infoHead->DataBits != 32) ||
 		infoHead->Format != 0 ||
@@ -44,7 +45,18 @@ bool read_bmp(unsigned char* file_data, img_data& output)
 	{
 		return false;
 	}
+	return true;
+}
 
+bool read_bmp(unsigned char* file_data, img_data& output)
+{
+	if (!is_bmp(file_data))
+	{
+		return false;
+	}
+
+	BitmapFileHead* fileHead = (BitmapFileHead*)file_data;
+	BitmapInfoHead* infoHead = (BitmapInfoHead*)(file_data + SIZE_BMP_FILE_HEAD);
 
 	output.has_alpha = infoHead->DataBits == 32;
 	output.width = infoHead->Width;

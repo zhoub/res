@@ -10,7 +10,6 @@ struct img_data
 	bool has_alpha;
 };
 
-bool read_bmp(unsigned char* file_data, img_data& output);
-bool read_png(unsigned char* file_data, img_data& output);
-bool read_tga(unsigned char* file_data, img_data& output);
+//only support limited bmp/tga/png
+bool read_image(unsigned char* file_data, img_data& output);
 void destroy_img_data(img_data& output);

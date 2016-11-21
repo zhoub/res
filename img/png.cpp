@@ -86,7 +86,7 @@ unsigned char PaethPredictor(unsigned char a, unsigned char b, unsigned char c)
 	return c;
 }
 
-bool read_png(unsigned char* file_data, img_data& output)
+bool is_png(unsigned char* file_data)
 {
 	PNGFileHead* fileHead = (PNGFileHead*)file_data;
 	if (fileHead->MagicPNG != PNG_MAGIC_NUM ||
@@ -102,7 +102,6 @@ bool read_png(unsigned char* file_data, img_data& output)
 		return false;
 	}
 
-
 	PNGChunkIHDR* IHDR = (PNGChunkIHDR*)dataPtr;
 	if (IHDR->EachColorBits != 8 ||
 		IHDR->Compression != 0 ||
@@ -112,6 +111,22 @@ bool read_png(unsigned char* file_data, img_data& output)
 	{
 		return false;
 	}
+
+	return true;
+}
+
+bool read_png(unsigned char* file_data, img_data& output)
+{
+	if (!is_png(file_data))
+	{
+		return false;
+	}
+
+	auto dataPtr = file_data + SIZE_PNG_FILE_HEAD;
+	PNGChunkHead* chunkHead = (PNGChunkHead*)dataPtr;
+
+	dataPtr += SIZE_PNG_CHUNK_HEAD;
+	PNGChunkIHDR* IHDR = (PNGChunkIHDR*)dataPtr;
 
 	bool found = false;
 	while (chunkHead->Type != CHUNK_IEND)
@@ -124,7 +139,6 @@ bool read_png(unsigned char* file_data, img_data& output)
 			found = true;
 			break;
 		}
-
 	}
 
 	if (!found)
