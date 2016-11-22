@@ -9,18 +9,11 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="zlib">
       <UniqueIdentifier>{49bf5448-8f60-4145-905a-9056428d6ae1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="inner_include.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\zlib\crc32.h">
       <Filter>zlib</Filter>
     </ClInclude>
@@ -57,17 +50,11 @@
     <ClInclude Include="img_data.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="impl\inner_include.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="bmp.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="tga.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="png.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\zlib\adler32.c">
       <Filter>zlib</Filter>
     </ClCompile>
@@ -95,10 +82,19 @@
     <ClCompile Include="..\zlib\inflate.c">
       <Filter>zlib</Filter>
     </ClCompile>
-    <ClCompile Include="file_data.cpp">
+    <ClCompile Include="impl\bmp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="img_data.cpp">
+    <ClCompile Include="impl\file_data.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="impl\img_data.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="impl\png.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="impl\tga.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

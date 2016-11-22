@@ -1,6 +1,6 @@
-#include "img_data.h"
+#include "../img_data.h"
 #include "inner_include.h"
-#include "../zlib/zlib.h"
+#include "../../zlib/zlib.h"
 #include <memory.h>
 #include <assert.h>
 #pragma pack(push)

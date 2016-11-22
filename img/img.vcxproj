@@ -137,7 +137,7 @@
     <ClInclude Include="..\zlib\zutil.h" />
     <ClInclude Include="file_data.h" />
     <ClInclude Include="img_data.h" />
-    <ClInclude Include="inner_include.h" />
+    <ClInclude Include="impl\inner_include.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\zlib\adler32.c" />
@@ -149,11 +149,11 @@
     <ClCompile Include="..\zlib\trees.c" />
     <ClCompile Include="..\zlib\uncompr.c" />
     <ClCompile Include="..\zlib\zutil.c" />
-    <ClCompile Include="bmp.cpp" />
-    <ClCompile Include="file_data.cpp" />
-    <ClCompile Include="img_data.cpp" />
-    <ClCompile Include="png.cpp" />
-    <ClCompile Include="tga.cpp" />
+    <ClCompile Include="impl\bmp.cpp" />
+    <ClCompile Include="impl\file_data.cpp" />
+    <ClCompile Include="impl\img_data.cpp" />
+    <ClCompile Include="impl\png.cpp" />
+    <ClCompile Include="impl\tga.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
