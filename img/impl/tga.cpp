@@ -1,5 +1,5 @@
-#include "../img_data.h"
 #include "inner_include.h"
+#include "../img_data.h"
 
 enum ImageType
 {

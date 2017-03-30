@@ -1,8 +1,9 @@
-#include "../img_data.h"
-#include "inner_include.h"
-#include "../../zlib/zlib.h"
 #include <memory.h>
 #include <assert.h>
+#include "../../zlib/zlib.h"
+#include "../img_data.h"
+#include "inner_include.h"
+
 #pragma pack(push)
 #pragma pack(1)
 enum PixelFormat
