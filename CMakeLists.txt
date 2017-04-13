@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.8)
 
-project(res)
-
 if(NOT DEFINED WITH_TESTS)
 set(WITH_TESTS OFF)
+else()
+project(res)
 endif()
 
 set(RES_INCLUDE_FILES
@@ -50,9 +50,13 @@ source_group(source\\img FILES ${RES_SOURCE_FILES})
 source_group(zlib FILES ${ZLIB_SOURCE_FILES})
 add_library(res ${ZLIB_SOURCE_FILES} ${RES_INCLUDE_FILES} ${RES_SOURCE_FILES})
 
-if(WITH_TESTS)
 
-message(STATUS "with-tests building test project")
+if(WITH_TESTS)
+message(STATUS "WITH_TEST=${WITH_TESTS}")
+message(STATUS "Redirect res project's output directory to ${CMAKE_SOURCE_DIR}/lib")
+set_target_properties(res PROPERTIES ARCHIVE_OUTPUT_DIRECTORY  ${CMAKE_SOURCE_DIR}/lib)
+
+message(STATUS "Building res_test project")
 
 if(MSVC)
 set(RES_TEST_SOURCE_FILES
@@ -64,8 +68,8 @@ add_executable(res_test WIN32 ${RES_TEST_SOURCE_FILES})
 set_target_properties(res_test PROPERTIES COMPILE_DEFINITIONS UNICODE)
 set_target_properties(res_test PROPERTIES COMPILE_DEFINITIONS _UNICODE)
 set_target_properties(res_test PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/win32_test)
+set_target_properties(res_test PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 target_link_libraries(res_test res)
-
 endif(MSVC)
 
 endif(WITH_TESTS)
