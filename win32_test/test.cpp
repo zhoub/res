@@ -141,7 +141,7 @@ bool Initialize(HWND hWnd)
 	img_data data;
 	//auto result = read_bmp(fileData, data);
 	//auto result = read_tga(fileData, data);
-	auto result = read_png(f.buffer, data);
+	auto result = read_image(f.buffer, data);
 	destroy_file_data(f);
 
 	if (!result)
