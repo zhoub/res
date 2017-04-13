@@ -121,8 +121,8 @@ void CenterWindow(HWND hWnd)
 		bufferBMP.Height + 2 * borderHeight, SWP_SHOWWINDOW);
 }
 
-#include <img_data.h>
-#include <file_data.h>
+#include <img/img_data.h>
+#include <img/file_data.h>
 bool Initialize(HWND hWnd)
 {
 	srand(static_cast<unsigned>(time(0)));
